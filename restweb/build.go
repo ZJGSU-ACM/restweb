@@ -112,7 +112,7 @@ func generateMain() {
 	tpl := `package main
 
 	import (
-	"restweb"
+	"github.com/ZJGSU-ACM/restweb"
 	"log"
 	
 	_ "{{.AppName}}/schedule"

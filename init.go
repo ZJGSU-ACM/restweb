@@ -1,9 +1,9 @@
 package restweb
 
 import (
+	"github.com/ZJGSU-ACM/restweb/config"
+	"github.com/ZJGSU-ACM/restweb/golog"
 	"os"
-	"restweb/config"
-	"restweb/golog"
 )
 
 var SessionManager *Manager
