@@ -35,7 +35,7 @@ func buildApp() (err error) {
 	generateMain()
 	generateRouter()
 	os.Chdir(packageName)
-	cmd := exec.Command("go", "-o", os.Getenv("GOPATH")+"/bin/"+appName, "build")
+	cmd := exec.Command("go", "build", "-o", os.Getenv("GOPATH")+"/bin/"+appName)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
