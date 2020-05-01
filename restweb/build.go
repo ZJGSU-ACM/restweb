@@ -31,18 +31,18 @@ var ContrInfos []ControllerInfo
 var RouterInfos []RouterInfo
 
 func buildApp() (err error) {
-	filepath.Walk(appName+"/controller", walkFn)
+	filepath.Walk(packageName+"/controller", walkFn)
 	generateMain()
 	generateRouter()
-	os.Chdir(appName)
-	cmd := exec.Command("go", "build")
+	os.Chdir(packageName)
+	cmd := exec.Command("go", "-o", os.Getenv("GOPATH")+"/bin/"+appName, "build")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
 	if err != nil {
-		log.Println(appName+" Build Failed\n[Error] ", err)
+		log.Println(packageName+" Build Failed\n[Error] ", err)
 	} else {
-		log.Println(appName + " Build Succeed")
+		log.Println(packageName + " Build Succeed")
 	}
 	return
 }
@@ -139,7 +139,7 @@ func generateMain() {
 	bf := bytes.NewBufferString("")
 	data := make(map[string]interface{})
 	data["ContrInfos"] = ContrInfos
-	data["AppName"] = appName
+	data["AppName"] = packageName
 	err = t.Execute(bf, data)
 	if err != nil {
 		log.Println("[Error]", err)
@@ -148,7 +148,7 @@ func generateMain() {
 	if err != nil {
 		log.Println("[Error]", err)
 	}
-	f, err := os.Create(appName + "/main.go")
+	f, err := os.Create(packageName + "/main.go")
 	if err != nil {
 		log.Println("[Error]", err)
 		return
@@ -168,7 +168,7 @@ func generateRouter() {
 		log.Println("[Error]", err)
 		return
 	}
-	bf, err := os.Create(appName + "/config/router.conf")
+	bf, err := os.Create(packageName + "/config/router.conf")
 	if err != nil {
 		log.Println("[Error]", err)
 	}

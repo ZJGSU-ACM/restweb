@@ -14,13 +14,13 @@ const AppConf = `
 `
 
 func newApp() {
-	os.Mkdir(appName, 0777)
-	os.Mkdir(appName+"/controller", 0777)
-	os.Mkdir(appName+"/views", 0777)
-	os.Mkdir(appName+"/config", 0777)
-	appConf, err := os.Create(appName + "/config/app.conf")
+	os.Mkdir(packageName, 0777)
+	os.Mkdir(packageName+"/controller", 0777)
+	os.Mkdir(packageName+"/views", 0777)
+	os.Mkdir(packageName+"/config", 0777)
+	appConf, err := os.Create(packageName + "/config/app.conf")
 	if err != nil {
 		appConf.Write([]byte(AppConf))
 	}
-	os.Mkdir(appName+"/static", 0777)
+	os.Mkdir(packageName+"/static", 0777)
 }

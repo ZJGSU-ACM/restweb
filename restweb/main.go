@@ -3,13 +3,20 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func usage() {
 	fmt.Println("Usage: restweb [cmd] [app]")
 }
 
+var packageName string
 var appName string
+
+func getAppName() string {
+	p := strings.Split(packageName, "/")
+	return p[len(p)-1]
+}
 
 func main() {
 	if len(os.Args) < 3 {
@@ -17,7 +24,8 @@ func main() {
 		return
 	}
 	cmd := os.Args[1]
-	appName = os.Args[2]
+	packageName = os.Args[2]
+	appName = getAppName()
 	switch cmd {
 	case "new":
 		newApp()
@@ -33,7 +41,7 @@ func main() {
 }
 
 func cleanApp() {
-	os.Remove(appName + "/" + appName)
-	os.Remove(appName + "/main.go")
-	os.Remove(appName + "/config/router.conf")
+	os.Remove(packageName + "/" + packageName)
+	os.Remove(packageName + "/main.go")
+	os.Remove(packageName + "/config/router.conf")
 }

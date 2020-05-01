@@ -11,7 +11,7 @@ func runApp() {
 		return
 	}
 
-	os.Chdir(appName)
+	os.Chdir(os.Getenv("GOPATH") + "/bin")
 
 	cmd := exec.Command("./" + appName)
 	cmd.Stdout = os.Stdout
